@@ -13,13 +13,13 @@ import org.springframework.web.bind.annotation.*;
 public class LectureController {
     private final LectureService lectureService;
 
-    @PostMapping("/")
-    public void addLecture(@RequestParam String subject, @RequestParam String description,
-                           @RequestParam String speakerUsername, @RequestParam int path) throws RuntimeException {
-        try {
-            lectureService.addLecture(subject, description, speakerUsername, path);
-        } catch (RuntimeException runtimeException) {
-            throw runtimeException;
-        }
-    }
+//    @PostMapping("/")
+//    public void addLecture(@RequestParam String subject, @RequestParam String description,
+//                           @RequestParam String speakerUsername, @RequestParam int path) throws RuntimeException {
+//        try {
+//            lectureService.addLecture(subject, description, speakerUsername, path);
+//        } catch (RuntimeException runtimeException) {
+//            throw runtimeException;
+//        }
+//    }
 }
