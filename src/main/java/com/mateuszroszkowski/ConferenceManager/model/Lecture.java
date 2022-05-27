@@ -1,8 +1,10 @@
 package com.mateuszroszkowski.ConferenceManager.model;
 
 import com.mateuszroszkowski.ConferenceManager.enums.Path;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
@@ -14,19 +16,21 @@ import java.util.Set;
 @Entity
 @Table(name = "lectures")
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Lecture {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String subject;
     private String description;
-    private LocalDateTime start;
-    private LocalDateTime end;
+    private LocalDateTime lectureStart;
+    private LocalDateTime lectureEnd;
     @OneToOne
-    private User speaker;
+    private AppUser speaker;
     @OneToMany
-    @Size(min=1, max=10)
-    private Set<User> listeners = new HashSet<>();
+    @Size(min=1, max=5)
+    private Set<AppUser> listeners = new HashSet<>();
     private Path path;
 
 }
