@@ -18,6 +18,8 @@ public class Lecture {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String subject;
+    private String description;
     private LocalDateTime start;
     private LocalDateTime end;
     @OneToOne
