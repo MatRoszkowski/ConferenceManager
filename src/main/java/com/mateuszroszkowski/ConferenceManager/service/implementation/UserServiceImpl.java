@@ -2,7 +2,7 @@ package com.mateuszroszkowski.ConferenceManager.service.implementation;
 
 import com.mateuszroszkowski.ConferenceManager.dto.UserDto;
 import com.mateuszroszkowski.ConferenceManager.mapper.UserMapper;
-import com.mateuszroszkowski.ConferenceManager.model.AppUser;
+import com.mateuszroszkowski.ConferenceManager.model.User;
 import com.mateuszroszkowski.ConferenceManager.repository.UserRepository;
 import com.mateuszroszkowski.ConferenceManager.service.UserService;
 import lombok.AllArgsConstructor;
@@ -23,27 +23,38 @@ public class UserServiceImpl implements UserService {
     private final UserMapper userMapper;
 
     @Override
-    public void createUser(UserDto userDto) throws RuntimeException {
-        checkIfUserExists(userDto);
-        AppUser appUser = userMapper.map(userDto);
-        userRepository.save(appUser);
-        log.info("User successfully created");
-    }
-
-    private void checkIfUserExists(UserDto userDto) throws RuntimeException {
-        Optional<AppUser> userByUsername = userRepository.findByUsername(userDto.getUsername());
-        Optional<AppUser> userByEmail = userRepository.findByEmail(userDto.getEmail());
-        if (userByUsername.isPresent()) {
+    public UserDto createUser(UserDto userDto) throws RuntimeException {
+        if (userWithUsernameExists(userDto.getUsername())) {
             throw new RuntimeException("User with username: " + userDto.getUsername() + " already exists");
         }
-        if (userByEmail.isPresent()) {
+        if (userWithEmailExists(userDto.getEmail())) {
             throw new RuntimeException("User with email: " + userDto.getEmail() + " already exists");
         }
+        User user = userMapper.map(userDto);
+        user = userRepository.save(user);
+        log.info("User successfully created");
+        return userMapper.map(user);
+    }
+
+    private boolean userWithUsernameExists(String username) {
+        Optional<User> userByUsername = userRepository.findByUsername(username);
+        if (userByUsername.isPresent()) {
+            return true;
+        }
+        return false;
+    }
+
+    private boolean userWithEmailExists(String email) {
+        Optional<User> userByEmail = userRepository.findByEmail(email);
+        if (userByEmail.isPresent()) {
+            return true;
+        }
+        return false;
     }
 
     @Override
     public void updateEmail(String username, String newEmail) {
-        Optional<AppUser> user = userRepository.findByUsername(username);
+        Optional<User> user = userRepository.findByUsername(username);
         if (user.isPresent()) {
             user.get().setEmail(newEmail);
             userRepository.save(user.get());
@@ -54,7 +65,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<AppUser> getAllUsers() {
+    public List<User> getAllUsers() {
         return userRepository.findAll();
     }
 }
