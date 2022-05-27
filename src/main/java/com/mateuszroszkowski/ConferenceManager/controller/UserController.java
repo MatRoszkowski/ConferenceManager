@@ -1,11 +1,10 @@
 package com.mateuszroszkowski.ConferenceManager.controller;
 
 import com.mateuszroszkowski.ConferenceManager.dto.UserDto;
-import com.mateuszroszkowski.ConferenceManager.model.AppUser;
+import com.mateuszroszkowski.ConferenceManager.model.User;
 import com.mateuszroszkowski.ConferenceManager.service.UserService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,7 +26,7 @@ public class UserController {
     }
 
     @GetMapping("/")
-    public List<AppUser> getAllUsers() {
+    public List<User> getAllUsers() {
         return userService.getAllUsers();
     }
 

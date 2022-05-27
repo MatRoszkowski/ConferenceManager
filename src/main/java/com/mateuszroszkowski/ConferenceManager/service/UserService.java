@@ -1,14 +1,14 @@
 package com.mateuszroszkowski.ConferenceManager.service;
 
 import com.mateuszroszkowski.ConferenceManager.dto.UserDto;
-import com.mateuszroszkowski.ConferenceManager.model.AppUser;
+import com.mateuszroszkowski.ConferenceManager.model.User;
 
 import java.util.List;
 
 public interface UserService {
-    void createUser(UserDto userDto);
+    UserDto createUser(UserDto userDto);
 
     void updateEmail(String username, String newEmail);
 
-    List<AppUser> getAllUsers();
+    List<User> getAllUsers();
 }

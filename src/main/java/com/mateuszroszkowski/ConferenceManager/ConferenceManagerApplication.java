@@ -49,33 +49,33 @@ public class ConferenceManagerApplication {
             userService.createUser(userDto4);
             userService.createUser(userDto5);
 
-            lectureService.addLecture("Subject1", "First lecture on path A", "Jan Kowalski", Path.PATH_A,
+            lectureService.addLecture("Subject 1", "First lecture on path A", "Jan Kowalski", Path.PATH_A,
                     LocalDateTime.of(2022, Month.JUNE, 1, 10, 0),
                     LocalDateTime.of(2022, Month.JUNE, 1, 11, 45));
-            lectureService.addLecture("Subject2", "First lecture on path B", "Adam Nowak", Path.PATH_B,
+            lectureService.addLecture("Subject 2", "First lecture on path B", "Adam Nowak", Path.PATH_B,
                     LocalDateTime.of(2022, Month.JUNE, 1, 10, 0),
                     LocalDateTime.of(2022, Month.JUNE, 1, 11, 45));
-            lectureService.addLecture("Subject3", "First lecture on path C", "Anna Wiśniewska", Path.PATH_C,
+            lectureService.addLecture("Subject 3", "First lecture on path C", "Anna Wiśniewska", Path.PATH_C,
                     LocalDateTime.of(2022, Month.JUNE, 1, 10, 0),
                     LocalDateTime.of(2022, Month.JUNE, 1, 11, 45));
 
-            lectureService.addLecture("Subject1", "Second lecture on path A", "Jan Kowalski", Path.PATH_A,
+            lectureService.addLecture("Subject 1", "Second lecture on path A", "Jan Kowalski", Path.PATH_A,
                     LocalDateTime.of(2022, Month.JUNE, 1, 12, 0),
                     LocalDateTime.of(2022, Month.JUNE, 1, 13, 45));
-            lectureService.addLecture("Subject2", "Second lecture on path B", "Adam Nowak", Path.PATH_B,
+            lectureService.addLecture("Subject 2", "Second lecture on path B", "Adam Nowak", Path.PATH_B,
                     LocalDateTime.of(2022, Month.JUNE, 1, 12, 0),
                     LocalDateTime.of(2022, Month.JUNE, 1, 13, 45));
-            lectureService.addLecture("Subject3", "Second lecture on path C", "Anna Wiśniewska", Path.PATH_C,
+            lectureService.addLecture("Subject 3", "Second lecture on path C", "Anna Wiśniewska", Path.PATH_C,
                     LocalDateTime.of(2022, Month.JUNE, 1, 12, 0),
                     LocalDateTime.of(2022, Month.JUNE, 1, 13, 45));
 
-            lectureService.addLecture("Subject1", "Third lecture on path A", "Jan Kowalski", Path.PATH_A,
+            lectureService.addLecture("Subject 1", "Third lecture on path A", "Jan Kowalski", Path.PATH_A,
                     LocalDateTime.of(2022, Month.JUNE, 1, 14, 0),
                     LocalDateTime.of(2022, Month.JUNE, 1, 15, 45));
-            lectureService.addLecture("Subject2", "Third lecture on path B", "Adam Nowak", Path.PATH_B,
+            lectureService.addLecture("Subject 2", "Third lecture on path B", "Adam Nowak", Path.PATH_B,
                     LocalDateTime.of(2022, Month.JUNE, 1, 14, 0),
                     LocalDateTime.of(2022, Month.JUNE, 1, 15, 45));
-            lectureService.addLecture("Subject3", "Third lecture on path C", "Anna Wiśniewska", Path.PATH_C,
+            lectureService.addLecture("Subject 3", "Third lecture on path C", "Anna Wiśniewska", Path.PATH_C,
                     LocalDateTime.of(2022, Month.JUNE, 1, 14, 0),
                     LocalDateTime.of(2022, Month.JUNE, 1, 15, 45));
 

@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @Entity
@@ -20,7 +20,7 @@ import java.util.Set;
 @AllArgsConstructor
 public class Lecture {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String subject;
     private String description;
@@ -29,7 +29,7 @@ public class Lecture {
     private String speakerName;
     @OneToMany
     @Size(min = 1, max = 5)
-    private Set<AppUser> listeners = new HashSet<>();
+    private List<User> listeners = new ArrayList<>();
     private Path path;
 
 }
