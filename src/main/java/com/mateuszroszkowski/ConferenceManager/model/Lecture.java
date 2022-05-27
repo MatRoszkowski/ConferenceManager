@@ -26,11 +26,12 @@ public class Lecture {
     private String description;
     private LocalDateTime lectureStart;
     private LocalDateTime lectureEnd;
-    @OneToOne
+    @ManyToOne
     private AppUser speaker;
     @OneToMany
     @Size(min=1, max=5)
     private Set<AppUser> listeners = new HashSet<>();
+    @Column(unique = true)
     private Path path;
 
 }
