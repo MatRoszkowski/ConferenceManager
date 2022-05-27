@@ -14,7 +14,10 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.time.Month;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -25,13 +28,19 @@ public class LectureServiceImpl implements LectureService {
     private final UserRepository userRepository;
 
     @Override
-    public void addLecture(String subject, String description, String speakerUsername, int path) throws RuntimeException{
+    public void addLecture(String subject, String description, String speakerUsername, int path) throws RuntimeException {
         Path path1 = getPathById(path);
-        LectureStartEndDto lectureStartEndDto = getLectureStarEnd(path1);
+        if (path1 == null) {
+            throw new RuntimeException("Path with number: " + path + " does not exist");
+        }
         Optional<AppUser> speaker = userRepository.findByUsername(speakerUsername);
-        if(speaker.isEmpty()){
+        if (speaker.isEmpty()) {
             throw new RuntimeException("Speaker with username: " + speakerUsername + " does not exist");
         }
+        if (!userCanParticipate(speaker.get(), path1)) {
+            throw new RuntimeException("Speaker with this username already has a lecture at this time");
+        }
+        LectureStartEndDto lectureStartEndDto = getLectureStarEnd(path1);
         Lecture lecture = Lecture.builder()
                 .subject(subject)
                 .description(description)
@@ -43,11 +52,26 @@ public class LectureServiceImpl implements LectureService {
         lectureRepository.save(lecture);
     }
 
-    private boolean speakerCanSpeak(AppUser speaker, Path path){
-        Optional<Lecture> lecture = lectureRepository.findByUsernameAndPath(speaker.getUsername(), path);
-        if (lecture.isPresent()){
-            throw new RuntimeException("Speaker with this username already has a lecture at this time");
-        }else return true;
+    private boolean userCanParticipate(AppUser user, Path path) {
+        List<Lecture> lecturesAtGivenTime = new ArrayList<>();
+        if (path == Path.PATH_A_1 || path == Path.PATH_A_2 || path == Path.PATH_A_3) {
+            lecturesAtGivenTime = lectureRepository.findAllWithHours(Path.PATH_A_1, Path.PATH_A_2, Path.PATH_A_3);
+        } else if (path == Path.PATH_B_1 || path == Path.PATH_B_2 || path == Path.PATH_B_3) {
+            lecturesAtGivenTime = lectureRepository.findAllWithHours(Path.PATH_B_1, Path.PATH_B_2, Path.PATH_B_3);
+        } else if (path == Path.PATH_C_1 || path == Path.PATH_C_2 || path == Path.PATH_C_3) {
+            lecturesAtGivenTime = lectureRepository.findAllWithHours(Path.PATH_C_1, Path.PATH_C_2, Path.PATH_C_3);
+        }
+        List<Lecture> isSpeaker = lecturesAtGivenTime.stream()
+                .filter(lecture -> lecture.getSpeaker().getUsername().equals(user.getUsername())).collect(Collectors.toList());
+        if (!isSpeaker.isEmpty()) {
+            return false;
+        }
+        List<Lecture> isListener = lecturesAtGivenTime.stream()
+                .filter(lecture -> lecture.getListeners().contains(user)).collect(Collectors.toList());
+        if (!isListener.isEmpty()) {
+            return false;
+        }
+        return true;
     }
 
     private LectureStartEndDto getLectureStarEnd(Path path) {
