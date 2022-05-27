@@ -1,12 +1,13 @@
 package com.mateuszroszkowski.ConferenceManager.model;
 
-import com.mateuszroszkowski.ConferenceManager.enums.Path;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 import java.util.HashSet;
@@ -32,6 +33,8 @@ public class Lecture {
     @Size(min=1, max=5)
     private Set<AppUser> listeners = new HashSet<>();
     @Column(unique = true)
-    private Path path;
+    @Min(0)
+    @Max(8)
+    private Integer path;
 
 }
