@@ -8,7 +8,6 @@ import com.mateuszroszkowski.ConferenceManager.repository.UserRepository;
 import com.mateuszroszkowski.ConferenceManager.service.LectureService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +16,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -76,7 +74,7 @@ public class LectureServiceImpl implements LectureService {
         log.info("User: " + username + " registered successfully to lecture: " + lectureId);
     }
 
-    public void cancelReservation(String username, String email, int lectureId) {
+    public void cancelReservation(String username, String email, int lectureId) throws RuntimeException {
         Optional<User> user = userRepository.findByUsername(username);
         Optional<Lecture> lecture = lectureRepository.findById(Long.valueOf(lectureId));
         List<Lecture> lectures = getUserLectures(username);

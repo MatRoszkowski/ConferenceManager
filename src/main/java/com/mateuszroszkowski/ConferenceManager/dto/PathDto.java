@@ -4,19 +4,12 @@ import com.mateuszroszkowski.ConferenceManager.enums.Path;
 import lombok.Builder;
 import lombok.Data;
 
-import java.time.LocalDateTime;
-
 @Data
 @Builder
-public class LectureDto {
+public class PathDto {
 
-    private Long id;
-    private String subject;
-    private String description;
-    private LocalDateTime lectureStart;
-    private LocalDateTime lectureEnd;
-    private String speakerName;
     private Path path;
     private int numberOfListeners;
     private double percentageOccupancy;
+
 }

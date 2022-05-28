@@ -20,17 +20,17 @@ public class LectureController {
         return lectureService.getAllLectures();
     }
 
-    @GetMapping("/{username}")
+    @GetMapping("/{username}/")
     public List<Lecture> getUserLectures(String username) {
         return lectureService.getUserLectures(username);
     }
 
-    @PutMapping("/")
+    @PatchMapping("/")
     public void registerUserToLecture(@RequestParam String username, @RequestParam String email, @RequestParam int lectureId) throws RuntimeException {
         lectureService.registerUserToLecture(username, email, lectureId);
     }
 
-    @PutMapping("/cancel/")
+    @PatchMapping("/cancel/")
     public void cancelReservation(@RequestParam String username, @RequestParam String email, @RequestParam int lectureId) throws RuntimeException {
         lectureService.cancelReservation(username, email, lectureId);
     }

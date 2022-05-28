@@ -30,7 +30,7 @@ public class UserController {
         return userService.getAllUsers();
     }
 
-    @PatchMapping("/email/update/")
+    @PatchMapping("/email/")
     public void updateEmail(@RequestParam String username, @RequestParam String newEmail) {
         try {
             userService.updateEmail(username, newEmail);
