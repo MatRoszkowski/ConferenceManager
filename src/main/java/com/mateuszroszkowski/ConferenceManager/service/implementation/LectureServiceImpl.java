@@ -67,7 +67,28 @@ public class LectureServiceImpl implements LectureService {
         Optional<User> user = userRepository.findByUsername(username);
         Optional<Lecture> lecture = lectureRepository.findById(Long.valueOf(lectureId));
         List<Lecture> lectures = getUserLectures(username);
+        int flag = 0;
+        validateData(user, username, lecture, lectureId, lectures, email, flag);
+        lecture.get().getListeners().add(user.get());
 
+        lectureRepository.save(lecture.get());
+        sendEmailToFile(user.get(), lecture.get());
+        log.info("User: " + username + " registered successfully to lecture: " + lectureId);
+    }
+
+    public void cancelReservation(String username, String email, int lectureId) {
+        Optional<User> user = userRepository.findByUsername(username);
+        Optional<Lecture> lecture = lectureRepository.findById(Long.valueOf(lectureId));
+        List<Lecture> lectures = getUserLectures(username);
+        int flag = 1;
+        validateData(user, username, lecture, lectureId, lectures, email, flag);
+
+        lecture.get().getListeners().remove(user.get());
+        log.info("User: " + username + " canceled reservation successfully to lecture: " + lectureId);
+    }
+
+    private boolean validateData(Optional<User> user, String username, Optional<Lecture> lecture, int lectureId,
+                                 List<Lecture> lectures, String email, int flag) throws RuntimeException {
         if (user.isEmpty()) {
             throw new RuntimeException("User with username: " + username + " does not exist");
         }
@@ -77,20 +98,22 @@ public class LectureServiceImpl implements LectureService {
         if (!usernameMatchEmail(user, email)) {
             throw new RuntimeException("Username does not match email");
         }
-        if (isAlreadyRegisteredToLectureWithId(lectures, lectureId)) {
-            throw new RuntimeException("User: " + username + " already registered to lecture: " + lectureId);
+        if (flag == 0) {
+            if (isAlreadyRegisteredToLectureWithId(lectures, lectureId)) {
+                throw new RuntimeException("User: " + username + " already registered to lecture: " + lectureId);
+            }
+            if (isAlreadyRegisteredToLectureAtThisTime(lectures, lecture)) {
+                throw new RuntimeException("User: " + username + " already registered to lecture at this time");
+            }
+            if (isLectureFull(lectureId)) {
+                throw new RuntimeException("Lecture: " + lectureId + " is full");
+            }
+        } else if (flag == 1) {
+            if (!isAlreadyRegisteredToLectureWithId(lectures, lectureId)) {
+                throw new RuntimeException("User: " + username + " is not registered to lecture: " + lectureId);
+            }
         }
-        if (isAlreadyRegisteredToLectureAtThisTime(lectures, lecture)) {
-            throw new RuntimeException("User: " + username + " already registered to lecture at this time");
-        }
-        if (isLectureFull(lectureId)) {
-            throw new RuntimeException("Lecture: " + lectureId + " is full");
-        }
-
-        lecture.get().getListeners().add(user.get());
-        lectureRepository.save(lecture.get());
-        sendEmailToFile(user.get(), lecture.get());
-        log.info("User: " + username + " registered successfully to lecture: " + lectureId);
+        return true;
     }
 
     @Async

@@ -21,12 +21,17 @@ public class LectureController {
     }
 
     @GetMapping("/{username}")
-    public List<Lecture> getUserLectures(String username){
+    public List<Lecture> getUserLectures(String username) {
         return lectureService.getUserLectures(username);
     }
 
     @PutMapping("/")
-    public void registerUserToLecture(@RequestParam String username, @RequestParam String email, @RequestParam int lectureId) throws RuntimeException{
+    public void registerUserToLecture(@RequestParam String username, @RequestParam String email, @RequestParam int lectureId) throws RuntimeException {
         lectureService.registerUserToLecture(username, email, lectureId);
+    }
+
+    @PutMapping("/cancel/")
+    public void cancelReservation(@RequestParam String username, @RequestParam String email, @RequestParam int lectureId) throws RuntimeException {
+        lectureService.cancelReservation(username, email, lectureId);
     }
 }
