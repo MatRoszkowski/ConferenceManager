@@ -41,42 +41,42 @@ public class ConferenceManagerApplication {
             }
             UserDto userDto1 = UserDto.builder()
                     .name("Jan")
-                    .username("Mateusz1")
+                    .username("test1")
                     .email("email1")
                     .build();
             UserDto userDto2 = UserDto.builder()
                     .name("Kasia")
-                    .username("Mateusz2")
+                    .username("test2")
                     .email("email2")
                     .build();
             UserDto userDto3 = UserDto.builder()
                     .name("Mateusz")
-                    .username("Mateusz3")
+                    .username("test3")
                     .email("email3")
                     .build();
             UserDto userDto4 = UserDto.builder()
                     .name("Anna")
-                    .username("Mateusz4")
+                    .username("test4")
                     .email("email4")
                     .build();
             UserDto userDto5 = UserDto.builder()
                     .name("Wincent")
-                    .username("Mateusz5")
+                    .username("test5")
                     .email("email5")
                     .build();
             UserDto userDto6 = UserDto.builder()
                     .name("Klementyna")
-                    .username("Mateusz6")
+                    .username("test6")
                     .email("email6")
                     .build();
             UserDto userDto7 = UserDto.builder()
                     .name("Bogumił")
-                    .username("Mateusz7")
+                    .username("test7")
                     .email("email7")
                     .build();
             UserDto userDto8 = UserDto.builder()
                     .name("Bogumiła")
-                    .username("Mateusz8")
+                    .username("test8")
                     .email("email8")
                     .build();
 
@@ -118,8 +118,6 @@ public class ConferenceManagerApplication {
             lectureService.addLecture("Subject 3", "Third lecture on path C", "Anna Wiśniewska", Path.PATH_C,
                     LocalDateTime.of(2022, Month.JUNE, 1, 14, 0),
                     LocalDateTime.of(2022, Month.JUNE, 1, 15, 45));
-
         };
     }
-
 }
