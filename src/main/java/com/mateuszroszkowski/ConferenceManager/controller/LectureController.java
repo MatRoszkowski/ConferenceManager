@@ -26,7 +26,7 @@ public class LectureController {
     }
 
     @PutMapping("/")
-    public void registerUserToLecture(@RequestParam String username, @RequestParam String email, @RequestParam int lectureId){
+    public void registerUserToLecture(@RequestParam String username, @RequestParam String email, @RequestParam int lectureId) throws RuntimeException{
         lectureService.registerUserToLecture(username, email, lectureId);
     }
 }
