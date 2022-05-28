@@ -17,5 +17,6 @@ public class LectureDto {
     private LocalDateTime lectureEnd;
     private String speakerName;
     private Path path;
+    private int numberOfListeners;
     private double percentageOccupancy;
 }

@@ -20,12 +20,13 @@ public class LectureMapper {
                 .lectureEnd(lecture.getLectureEnd())
                 .speakerName(lecture.getSpeakerName())
                 .path(lecture.getPath())
+                .numberOfListeners(lecture.getListeners().size())
                 .percentageOccupancy(calculatePercentageOccupancy(lecture.getListeners(), MAXIMUM_NUMBER_OF_USERS))
                 .build();
     }
 
     private double calculatePercentageOccupancy(List<User> users, int max) {
-        double percentageOccupancy = (users.size() / max) * 100;
+        double percentageOccupancy = ((double) users.size() / (double) max) * 100.00;
         return percentageOccupancy;
     }
 }
