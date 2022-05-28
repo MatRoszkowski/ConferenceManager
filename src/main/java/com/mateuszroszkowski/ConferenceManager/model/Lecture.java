@@ -27,7 +27,7 @@ public class Lecture {
     private LocalDateTime lectureStart;
     private LocalDateTime lectureEnd;
     private String speakerName;
-    @OneToMany
+    @ManyToMany
     @Size(min = 1, max = 5)
     private List<User> listeners = new ArrayList<>();
     private Path path;
