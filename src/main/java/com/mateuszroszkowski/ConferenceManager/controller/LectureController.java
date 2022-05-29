@@ -22,10 +22,10 @@ public class LectureController {
         return lectureService.getAllLectures();
     }
 
-    @Operation(summary = "Get all user lectures", description = "Returns a list of lectures user is signed in. If user does not exist" +
+    @Operation(summary = "Get user lectures", description = "Returns a list of lectures user is signed in. If user does not exist" +
             " returns message informing about it.")
     @GetMapping("/{username}/")
-    public List<Lecture> getUserLectures(String username) {
+    public List<Lecture> getUserLectures(@PathVariable String username) {
         return lectureService.getUserLectures(username);
     }
 
@@ -38,7 +38,7 @@ public class LectureController {
         lectureService.registerUserToLecture(username, email, lectureId);
     }
 
-    @Operation(summary = "Cancer reservation in lecture", description = "Using this endpoint you can cancel reservation to lecture." +
+    @Operation(summary = "Cancel reservation in lecture", description = "Using this endpoint you can cancel reservation to lecture." +
             " method takes username, email and lecture id as parameters. Checks if user with username and email exists, if username" +
             " and email match each other, if user is registered to given lecture. Returns a message if any of this conditions is not fulfilled.")
     @PatchMapping("/cancel/")
