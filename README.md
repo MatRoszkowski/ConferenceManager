@@ -86,9 +86,19 @@ Lecture is full |  Saving email in file
 :-------------------------:|:-------------------------:
 ![image](https://user-images.githubusercontent.com/25953723/170867929-2169670e-7d57-4410-beae-28e3d591c2f3.png) | ![image](https://user-images.githubusercontent.com/25953723/170868157-ddc37dc6-8847-4653-955b-be0333a7e7cf.png)
 
+## Canceling reservation
+Using this endpoint you can cancel reservation to lecture. method takes username, email and lecture id as parameters. Checks if user with username and email exists, if username and email match each other, if user is registered to given lecture. Returns a message if any of this conditions is not fulfilled.
 
+Successfull canceling |  Not registered to lecture
+:-------------------------:|:-------------------------:
+![image](https://user-images.githubusercontent.com/25953723/170868596-76e63b00-da0b-4188-9020-747ae1316b00.png) | ![image](https://user-images.githubusercontent.com/25953723/170868620-b32f093a-bd62-4736-ade6-7d57986d84f7.png)
 
+## Generate lists for organizers
+First returns a list of paths according to interest with number of listeners and percentage occupancy in descending order. Second returns a list of lectures according to interest with number of listeners and percentage occupancy in descending order.
 
+Get list of paths according to interest |  Get list of lectures according to interest
+:-------------------------:|:-------------------------:
+![image](https://user-images.githubusercontent.com/25953723/170868899-aab0210c-a042-4cfe-871d-37f3bf578855.png) | ![image](https://user-images.githubusercontent.com/25953723/170868980-e9d7851d-6c9c-49f5-8de5-9421398f47cd.png)
 
 
 
